@@ -22,3 +22,12 @@ api list
 authentication and authorization
     authentication => validate the user access (login)
     authorization => user access to particular thing
+
+
+
+mistakes in our initial signup
+    in response we are sending password
+    same user name error
+    handle it in a good way
+    encrypt the password
+    authorization token
