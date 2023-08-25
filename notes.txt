@@ -26,8 +26,17 @@ authentication and authorization
 
 
 mistakes in our initial signup
-    in response we are sending password
-    same user name error
-    handle it in a good way
-    encrypt the password
-    authorization token
+    in response we are sending password => done
+    same user name error => done
+    handle it in a good way => done
+    encrypt the password =>done
+    authorization token =>
+
+
+encrypt password
+    npm i bcrypt 
+
+
+
+bcrypt => genSalt()
+       => hash()

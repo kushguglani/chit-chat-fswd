@@ -1,6 +1,6 @@
 const express = require('express');
 const UserModel = require('../models/user')
-
+const bcrypt = require('bcrypt');
 
 const routes = express.Router();
 
@@ -24,7 +24,7 @@ routes.get('/login', (req, res) => {
     }
 })
 
-routes.post('/signup', (req, res) => {
+routes.post('/signup', async (req, res) => {
     // validate user req body (username and password);
     console.log(req.body);
     if (!req.body.name) {
@@ -35,15 +35,35 @@ routes.post('/signup', (req, res) => {
     } else if (!req.body.password) {
         res.status(400).send("password can not be empty");
     } else {
+
+        // check user already exist
+        let user = await UserModel.findOne({ userName: req.body.userName });
+        if (user) {
+            return res.status(400).json("Username alredy exist");
+        }
+
+        const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS));
+        const hash = await bcrypt.hash(req.body.password, salt);
         const newUser = new UserModel({
-            name:req.body.name,
-            userName:req.body.userName,
-            password:req.body.password,
+            name: req.body.name,
+            userName: req.body.userName,
+            password: hash,
         })
-        newUser.save().then(user=>{
+        newUser.save().then(user => {
             console.log(user);
-            res.send(user)
+            // below line is sending the whole user
+            // res.send(user)
+            // filter
+            res.json({
+                success: true,
+                id: user._id,
+                userName: user.userName,
+                name: user.name,
+            })
         })
+            .catch(err => {
+                res.send(err)
+            })
     }
 })
 
