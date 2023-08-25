@@ -1,0 +1,24 @@
+.gitignore => files and folder which you don't want to commit
+
+.env => environment file in which we put some imp variables,credentials and url
+
+
+cors=> cross origin request 
+
+dotenv => to access env file in code
+
+
+mongoose => create model => make custom validation and required properties
+
+
+
+api list 
+    for users
+        signup
+        login
+        usersList
+
+
+authentication and authorization
+    authentication => validate the user access (login)
+    authorization => user access to particular thing
