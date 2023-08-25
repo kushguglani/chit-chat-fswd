@@ -1,6 +1,7 @@
 const express = require('express');
 const UserModel = require('../models/user')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const routes = express.Router();
 
@@ -54,12 +55,26 @@ routes.post('/signup', async (req, res) => {
             // below line is sending the whole user
             // res.send(user)
             // filter
-            res.json({
-                success: true,
+
+            const payload = {
                 id: user._id,
-                userName: user.userName,
-                name: user.name,
-            })
+                userName: req.body.userName,
+            }
+            jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                { expiresIn: 31556926 },
+                (err, token) => {
+                    res.json({
+                        success: true,
+                        id: user._id,
+                        userName: user.userName,
+                        name: user.name,
+                        token: token
+                    })
+
+                })
+
         })
             .catch(err => {
                 res.send(err)

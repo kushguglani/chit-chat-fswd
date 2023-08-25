@@ -40,3 +40,13 @@ encrypt password
 
 bcrypt => genSalt()
        => hash()
+
+npm i jsonwebtoken
+jwt => json web token
+    payload
+    secret
+    expiry
+
+    2 method
+    sign(3 things)
+    verify()
