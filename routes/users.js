@@ -12,7 +12,7 @@ routes.get('/dummyapi', (req, res) => {
 
 
 // user login api
-routes.get('/login', async (req, res) => {
+routes.post('/login', async (req, res) => {
     // validate user req body (username and password);
     console.log(req.body);
     if (!req.body.userName) {
