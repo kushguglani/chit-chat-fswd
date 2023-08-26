@@ -13,7 +13,7 @@ routes.get('/dummyapi', (req, res) => {
 
 // user login api
 
-routes.get('/login', (req, res) => {
+routes.get('/login', async (req, res) => {
     // validate user req body (username and password);
     console.log(req.body);
     if (!req.body.userName) {
@@ -22,6 +22,27 @@ routes.get('/login', (req, res) => {
         res.status(400).send("password can not be empty");
     } else {
         // validate from mongodb
+        let user = await UserModel.findOne({ userName: req.body.userName });
+        if (!user) {
+            return res.status(400).json("Invalid Credntials");
+        }
+        let isMatch = await bcrypt.compare(req.body.password, user.password);
+        if (!isMatch) {
+            return res.status(400).json("Invalid Credntials");
+        }
+        const payload = {
+            id: user._id,
+            userName: req.body.name,
+        }
+        const token = await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 31556926 });
+        console.log(token);
+        res.json({
+            success: true,
+            id: user._id,
+            userName: user.userName,
+            name: user.name,
+            token: token
+        })
     }
 })
 
@@ -58,7 +79,7 @@ routes.post('/signup', async (req, res) => {
 
             const payload = {
                 id: user._id,
-                userName: req.body.userName,
+                userName: req.body.name,
             }
             jwt.sign(
                 payload,
