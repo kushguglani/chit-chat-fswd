@@ -12,7 +12,6 @@ routes.get('/dummyapi', (req, res) => {
 
 
 // user login api
-
 routes.get('/login', async (req, res) => {
     // validate user req body (username and password);
     console.log(req.body);
@@ -46,6 +45,7 @@ routes.get('/login', async (req, res) => {
     }
 })
 
+// user signup api
 routes.post('/signup', async (req, res) => {
     // validate user req body (username and password);
     console.log(req.body);
@@ -101,6 +101,37 @@ routes.post('/signup', async (req, res) => {
                 res.send(err)
             })
     }
+})
+
+// user signup api
+routes.get('/', async (req, res) => {
+    // from user api header
+    let token = req.headers.auth;
+    // check token is present
+    if (!token) {
+        return res.status(400).json("unauthorized no token");
+    }
+    // validating token 0 => payload, 1=>secret, 2=>option with expiry
+    let jwtUser;
+    try {
+        jwtUser = await jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json("invalid token");
+    }
+    console.log({ jwtUser });
+    // jwtUser is alooged in user
+    if (!jwtUser) {
+        return res.status(400).json("unauthorized");
+    }
+    // find all users and send 
+    let users = await UserModel.aggregate()
+        .project({
+            password: 0,
+            date: 0,
+            __v: 0
+        });
+    res.send(users)
 })
 
 module.exports = routes;
