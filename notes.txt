@@ -82,3 +82,12 @@ req.io.sockets.emit('messages', req.body.message);
     Global message
     message
     Conversation
+
+api list
+    post Global message (/global)
+    get Global message (/globalMessage)
+
+    post personal(/personal)
+
+    get(conversationList)
+    get(conversation/user)
