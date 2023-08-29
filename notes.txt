@@ -50,3 +50,35 @@ jwt => json web token
     2 method
     sign(3 things)
     verify()
+
+
+SocketIO
+bidirectional and event-based communication between a client and a server.
+(io) socket io listen to server (listen)
+
+
+// Assign socket object to every request
+app.use(function (req, res, next) {
+  req.io = io;
+  next();
+});
+socket-io - listen server -> use to every req
+
+npm i socket.io
+const io = require('socket.io')(server,  { cors: { origin: '*' } });
+
+// Assign socket object to every request (middleware)
+app.use(function (req, res, next) {
+    req.io = io;
+    next();
+});
+req.io.sockets.emit('messages', req.body.message);
+ socket.on("messages", (data) => setLastMessage(data));
+
+
+
+ chatting app
+ 3 model    
+    Global message
+    message
+    Conversation
