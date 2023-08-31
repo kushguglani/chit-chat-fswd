@@ -1,6 +1,9 @@
 const express = require('express');
 const GlobalMessage = require('../models/GlobalMessage');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const Messages = require('../models/Messages');
+const Conversation = require('../models/Conversation');
 
 const routes = express.Router();
 
@@ -44,22 +47,56 @@ routes.get('/globalMessages', async (req, res) => {
 
     let messages = await GlobalMessage.aggregate([
         {
-            $lookup:{
-                from:'users',
-                localField:'from',
-                foreignField:'_id',
-                as:'userObj'
+            $lookup: {
+                from: 'users',
+                localField: 'from',
+                foreignField: '_id',
+                as: 'userObj'
             }
         }
     ])
-    .project({
-        'userObj.password': 0,
-        'userObj.date': 0,
-        'userObj.__v': 0,
-        '__v':0
-    });
+        .project({
+            'userObj.password': 0,
+            'userObj.date': 0,
+            'userObj.__v': 0,
+            '__v': 0
+        });
     res.send(messages)
 
+})
+
+
+
+// send a personal message  (me and ashvary)
+routes.post('/personal', async (req, res) => {
+    let from = new mongoose.Types.ObjectId(jwtUser.id); // logged in person kush
+    let to = new mongoose.Types.ObjectId(req.body.sender); // person to send a msz
+    let conversation = await Conversation.findOneAndUpdate(
+        {
+            recipents: {
+                $all: [
+                    { $elemMatch: { $eq: from } },
+                    { $elemMatch: { $eq: to } }
+                ]
+            }
+        },
+        {
+            recipents: [from, to],
+            lastMessage: req.body.message
+        },
+        { upsert: true, new: true, setDefaultsOnInsert: true }
+    )
+    // upsert: true, If the value is true and no documents match the condition, this option inserts a new document into the collection
+    // new: true,  Creates a new document if no documents match the query
+
+    let message = new Messages({
+        conversation: conversation._id,
+        from: from,
+        to: to,
+        body: req.body.message
+    })
+    let messageData = await message.save();
+    res.send(messageData)
 })
 
 module.exports = routes;
