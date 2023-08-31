@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "4f8e7fe0-f9da-43a6-b883-28852a95b43a",
+		"name": "chat-fswd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2061554"
+	},
+	"item": [
+		{
+			"name": "signup api",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"pankaj\",\r\n    \"username\":\"pk1\",\r\n    \"password\":\"123456\",\r\n    \"password2\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login api",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"pk1\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY5Y2FiNzk5ZTNmZjJmMzI2MzRjYiIsInVzZXJuYW1lIjoicGsxIiwiaWF0IjoxNjgyMzQ5MjY2LCJleHAiOjE3MTM5MDYxOTJ9.rnfwGAGB68K3w0kO79e03CGKeZGBNQES7SYyJl5H8Yk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "global message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY5Y2FiNzk5ZTNmZjJmMzI2MzRjYiIsInVzZXJuYW1lIjoicGsxIiwiaWF0IjoxNjgyMzQ5MjY2LCJleHAiOjE3MTM5MDYxOTJ9.rnfwGAGB68K3w0kO79e03CGKeZGBNQES7SYyJl5H8Yk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\":\"my name is pankaj\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/messages/global",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"messages",
+						"global"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "personal message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDNjN2M0NWE0Y2RiNTdhZjEzYTc5ZCIsInVzZXJuYW1lIjoia2ciLCJpYXQiOjE2ODIxNjM2ODAsImV4cCI6MTcxMzcyMDYwNn0.WuyVYVhhJ8GuDxwd0yXiVJAnrzh5FFvVwW9CTZcQ4dU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sender\":\"6443c7ad5a4cdb57af13a794\",\r\n    \"message\":\"How are you bro ?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/messages/personal",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"messages",
+						"personal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "global message list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDNjN2M0NWE0Y2RiNTdhZjEzYTc5ZCIsInVzZXJuYW1lIjoia2ciLCJpYXQiOjE2ODIxNjM2ODAsImV4cCI6MTcxMzcyMDYwNn0.WuyVYVhhJ8GuDxwd0yXiVJAnrzh5FFvVwW9CTZcQ4dU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sender\":\"644156654d15faf9c0de80b0\",\r\n    \"message\":\"Hi Ahmed!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/messages/globalMessages",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"messages",
+						"globalMessages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "conversation list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDNjN2M0NWE0Y2RiNTdhZjEzYTc5ZCIsInVzZXJuYW1lIjoia2ciLCJpYXQiOjE2ODIxNjM2ODAsImV4cCI6MTcxMzcyMDYwNn0.WuyVYVhhJ8GuDxwd0yXiVJAnrzh5FFvVwW9CTZcQ4dU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/messages/conversationList",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"messages",
+						"conversationList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "personalmessage list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDNjN2M0NWE0Y2RiNTdhZjEzYTc5ZCIsInVzZXJuYW1lIjoia2ciLCJpYXQiOjE2ODIxNjM2ODAsImV4cCI6MTcxMzcyMDYwNn0.WuyVYVhhJ8GuDxwd0yXiVJAnrzh5FFvVwW9CTZcQ4dU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sender\":\"644156654d15faf9c0de80b0\",\r\n    \"message\":\"Hi Ahmed!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/messages/conversationByUser/query?userId=6443c79d5a4cdb57af13a78e",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"messages",
+						"conversationByUser",
+						"query"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "6443c79d5a4cdb57af13a78e"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
