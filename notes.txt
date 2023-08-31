@@ -91,3 +91,43 @@ api list
 
     get(conversationList)
     get(conversation/user)
+
+
+
+    ravi
+ashvary
+sudhir
+manisha
+krishna
+
+
+
+4 account i will Creates
+and do some conversation
+
+global
+
+personal
+
+
+postman collection 
+
+
+
+
+socket io (live chatting)
+
+send message from react
+
+
+api
+    1.) to learn api
+    2.) to save chatting
+
+socket io
+    Live chatting
+
+
+
+
+
