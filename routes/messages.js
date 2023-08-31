@@ -99,4 +99,35 @@ routes.post('/personal', async (req, res) => {
     res.send(messageData)
 })
 
+// get conersation list
+routes.get('/conversationList', async (req, res) => {
+    let from = new mongoose.Types.ObjectId(jwtUser.id); // logged in person kush
+    let conversationList = await Conversation.aggregate(
+        [
+            {
+                $lookup: {
+                    from: 'users', // which collection I need to look or check
+                    localField: "recipents", // what is the  key in your collection
+                    foreignField: "_id", // what is the  key in lookup collection
+                    as: "recipentObj" // detail is stored in recipentObj variable
+                }
+            }
+        ]
+    )
+    .match(
+        { recipents: 
+            { $all: [
+                { $elemMatch: { $eq: from } 
+            }] 
+        }
+     })
+     .project({
+        'recipentObj.password':0,
+        'recipentObj.__v':0,
+        'recipentObj.date':0,
+     })
+     .exec()
+     res.send(conversationList);
+})
+
 module.exports = routes;
