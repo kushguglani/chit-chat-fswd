@@ -71,6 +71,8 @@ routes.post('/signup', async (req, res) => {
             userName: req.body.userName,
             password: hash,
         })
+
+        req.io.sockets.emit("users", user.username);
         newUser.save().then(user => {
             console.log(user);
             // below line is sending the whole user

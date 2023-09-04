@@ -36,6 +36,7 @@ routes.post('/global', async (req, res) => {
             body: req.body.message
         }
     )
+    req.io.sockets.emit('messages', req.body.message);
     let response = await message.save();
     res.send(response)
 })
@@ -95,6 +96,7 @@ routes.post('/personal', async (req, res) => {
         to: to,
         body: req.body.message
     })
+    req.io.sockets.emit('messages', req.body.message);
     let messageData = await message.save();
     res.send(messageData)
 })

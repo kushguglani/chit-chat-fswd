@@ -18,7 +18,7 @@ const server = app.listen(port, () => {
     console.log('server is up on port', port)
 })
 
-const io = require('socket.io')(server,  { cors: { origin: '*' } });
+const socketIo = require('socket.io')(server,  { cors: { origin: '*' } });
 
 
 // Database configuration
@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 
 // Assign socket object to every request
 app.use(function (req, res, next) {
-    req.io = io;
+    req.io = socketIo;
     next();
 });
 

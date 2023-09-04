@@ -127,6 +127,32 @@ api
 socket io
     Live chatting
 
+    post api 
+     socket io
+
+    sending message => any1 / global
+
+    user register => live in my conversation
+
+
+    any post req (not all)=> socket.io
+
+    req.io.sockets.emit("users", user.username); 
+    req.io.sockets.emit('messages', req.body.message);
+
+
+    
+    const socket = socketIOClient(process.env.REACT_APP_API_URL);
+    socket.on("messages", (data) => setLastMessage(data));
+
+
+concurrently 
+        "client-install": "npm install --prefix client",
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+
 
 
 
