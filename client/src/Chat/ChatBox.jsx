@@ -139,7 +139,7 @@ const ChatBox = (props) => {
       });
     }
   };
-
+  
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12} className={classes.headerRow}>
@@ -166,7 +166,8 @@ const ChatBox = (props) => {
                   >
                     <ListItemAvatar className={classes.avatar}>
                       <Avatar>
-                        {commonUtilites.getInitialsFromName(m.name)}
+                        {props.scope === "Global Chat" && commonUtilites.getInitialsFromName(m?.userObj[0]?.name)}
+                        {props.scope != "Global Chat" && m.fromObj && commonUtilites.getInitialsFromName(m?.fromObj[0]?.name)}
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
